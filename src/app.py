@@ -20,6 +20,44 @@ app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
           "static")), name="static")
 
 # In-memory activity database
+additional_activities = {
+    "Soccer Team": {
+        "description": "Outdoor soccer training and intra-school matches",
+        "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
+        "max_participants": 22,
+        "participants": ["liam@mergington.edu", "noah@mergington.edu"]
+    },
+    "Basketball Club": {
+        "description": "Skill drills, scrimmages, and competitive play",
+        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 15,
+        "participants": ["ava@mergington.edu", "isabella@mergington.edu"]
+    },
+    "Art Workshop": {
+        "description": "Painting, drawing, and mixed-media projects",
+        "schedule": "Fridays, 3:30 PM - 5:00 PM",
+        "max_participants": 18,
+        "participants": ["mia@mergington.edu", "charlotte@mergington.edu"]
+    },
+    "Drama Club": {
+        "description": "Acting exercises, rehearsals, and school productions",
+        "schedule": "Wednesdays, 3:30 PM - 5:30 PM",
+        "max_participants": 20,
+        "participants": ["amelia@mergington.edu", "harper@mergington.edu"]
+    },
+    "Debate Team": {
+        "description": "Formal debate practice and inter-school competitions",
+        "schedule": "Thursdays, 3:30 PM - 5:00 PM",
+        "max_participants": 12,
+        "participants": ["elijah@mergington.edu", "lucas@mergington.edu"]
+    },
+    "Science Olympiad": {
+        "description": "Hands-on STEM challenges and team competitions",
+        "schedule": "Mondays, 3:30 PM - 5:00 PM",
+        "max_participants": 16,
+        "participants": ["sophia@mergington.edu", "oliver@mergington.edu"]
+    }
+}
 activities = {
     "Chess Club": {
         "description": "Learn strategies and compete in chess tournaments",
@@ -54,6 +92,7 @@ def get_activities():
 
 @app.post("/activities/{activity_name}/signup")
 def signup_for_activity(activity_name: str, email: str):
+    # Validate student is not already signed up for the activity                   
     """Sign up a student for an activity"""
     # Validate activity exists
     if activity_name not in activities:
